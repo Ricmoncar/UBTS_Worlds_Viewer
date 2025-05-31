@@ -1,0 +1,32 @@
+{
+  "name": "worldcrafters",
+  "version": "1.0.0",
+  "description": "A comprehensive world-building web application for creating and exploring fictional worlds",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "serve": "python3 -m http.server 8000",
+    "dev": "live-server --port=8080 --host=localhost"
+  },
+  "keywords": [
+    "world-building",
+    "fiction",
+    "creative-writing",
+    "characters",
+    "storytelling",
+    "firebase"
+  ],
+  "author": "WorldCrafters Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/worldcrafters.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/worldcrafters/issues"
+  },
+  "homepage": "https://your-username.github.io/worldcrafters",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}

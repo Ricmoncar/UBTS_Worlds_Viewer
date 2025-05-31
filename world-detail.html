@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRAVELERS</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-globe"></i>
+                <span>TRAVELERS</span>
+            </div>
+            
+            <!-- Mobile menu toggle -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <!-- Desktop navigation -->
+            <div class="nav-menu">
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">Worlds</a>
+                    <a href="submitted-worlds.html" class="nav-link">Community Worlds</a>
+                </div>
+                <div class="auth-section">
+                    <button id="loginBtn" class="btn btn-outline">Login</button>
+                    <button id="signupBtn" class="btn btn-outline">Sign Up</button>
+                    <div id="userSection" class="user-section" style="display: none;">
+                        <span id="userEmail" class="user-email" title=""></span>
+                        <button id="logoutBtn" class="btn btn-outline">Logout</button>
+                        <button id="adminBtn" class="btn btn-primary" style="display: none;">Admin Panel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile navigation menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" class="mobile-nav-link">Worlds</a>
+            <a href="submitted-worlds.html" class="mobile-nav-link">Community Worlds</a>
+            
+            <div class="mobile-auth-section">
+                <div id="mobileUserSection" class="mobile-user-section" style="display: none;">
+                    <span id="mobileUserEmail" class="mobile-user-email"></span>
+                    <button id="mobileAdminBtn" class="btn btn-primary" style="display: none;">Admin Panel</button>
+                    <button id="mobileLogoutBtn" class="btn btn-outline">Logout</button>
+                </div>
+                <div id="mobileAuthButtons" class="mobile-auth-buttons">
+                    <button id="mobileLoginBtn" class="btn btn-outline">Login</button>
+                    <button id="mobileSignupBtn" class="btn btn-outline">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="loadingSection" class="loading-section">
+        <div class="loading-content">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading world...</p>
+        </div>
+    </div>
+
+    <div id="errorSection" class="error-section" style="display: none;">
+        <div class="error-content">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h2>World Not Found</h2>
+            <p>The world you're looking for doesn't exist or has been removed.</p>
+            <a href="index.html" class="btn btn-primary">
+                <i class="fas fa-home"></i> Return Home
+            </a>
+        </div>
+    </div>
+
+    <div id="worldContent" class="world-detail" style="display: none;">
+        <div class="world-header">
+            <div class="world-detail-content">
+                <div class="world-nav">
+                    <a href="index.html" class="back-link">
+                        <i class="fas fa-arrow-left"></i> Back to Worlds
+                    </a>
+                    <div id="adminActions" class="admin-actions" style="display: none;">
+                        <button id="editWorldBtn" class="btn btn-outline btn-small">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button id="deleteWorldBtn" class="btn btn-danger btn-small">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                </div>
+                
+                <h1 id="worldTitle" class="world-title-large"></h1>
+                <p id="worldCurrentState" class="world-current-state"></p>
+                <p id="worldCreatedInfo" class="world-meta"></p>
+            </div>
+        </div>
+
+        <div class="world-sections">
+            <!-- Backstory Section -->
+            <div class="world-section" id="backstorySection">
+                <h3><i class="fas fa-book"></i> Backstory</h3>
+                <div id="worldBackstory" class="section-content"></div>
+            </div>
+
+            <!-- Characters Section -->
+            <div class="world-section" id="charactersSection">
+                <div class="section-header-contrib">
+                    <h3><i class="fas fa-users"></i> Characters</h3>
+                    <button id="addCharacterBtn" class="btn btn-primary btn-small" style="display: none;">
+                        <i class="fas fa-plus"></i> Add Character
+                    </button>
+                </div>
+                <div id="charactersGrid" class="characters-grid">
+                    <!-- Characters will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Places Section -->
+            <div class="world-section" id="placesSection">
+                <div class="section-header-contrib">
+                    <h3><i class="fas fa-map-marked-alt"></i> Places of Interest</h3>
+                    <button id="addPlaceBtn" class="btn btn-primary btn-small" style="display: none;">
+                        <i class="fas fa-plus"></i> Add Place
+                    </button>
+                </div>
+                <div id="placesList" class="content-list">
+                    <!-- Places will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Story Ideas Section -->
+            <div class="world-section" id="storyIdeasSection">
+                <h3><i class="fas fa-lightbulb"></i> Story Ideas</h3>
+                <div id="storyIdeasList" class="content-list">
+                    <!-- Story ideas will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Conflicts Section -->
+            <div class="world-section" id="conflictsSection">
+                <h3><i class="fas fa-swords"></i> Conflicts & Tensions</h3>
+                <div id="conflictsList" class="content-list">
+                    <!-- Conflicts will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Soundtracks Section -->
+            <div class="world-section" id="soundtracksSection">
+                <div class="section-header-contrib">
+                    <h3><i class="fas fa-music"></i> Soundtracks</h3>
+                    <button id="addSoundtrackBtn" class="btn btn-primary btn-small" style="display: none;">
+                        <i class="fas fa-plus"></i> Add Soundtrack
+                    </button>
+                </div>
+                <div id="soundtracksList" class="content-list">
+                    <!-- Soundtracks will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Themes Section -->
+            <div class="world-section" id="themesSection">
+                <h3><i class="fas fa-heart"></i> Central Themes</h3>
+                <div id="themesList" class="content-tags">
+                    <!-- Themes will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Cultures Section -->
+            <div class="world-section" id="culturesSection">
+                <h3><i class="fas fa-users-cog"></i> Cultures & Societies</h3>
+                <div id="culturesList" class="content-list">
+                    <!-- Cultures will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Create Account</h2>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Character Modal -->
+    <div id="addCharacterModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add Character</h2>
+            <form id="addCharacterForm">
+                <div class="form-group">
+                    <label for="characterName">Name *</label>
+                    <input type="text" id="characterName" required>
+                </div>
+                <div class="form-group">
+                    <label for="characterBio">Biography</label>
+                    <textarea id="characterBio" rows="4" placeholder="Tell us about this character..."></textarea>
+                </div>
+                <div class="character-stats">
+                    <div class="stat-input">
+                        <label>AT</label>
+                        <input type="number" id="characterAT" value="10" min="1" max="99999">
+                    </div>
+                    <div class="stat-input">
+                        <label>DEF</label>
+                        <input type="number" id="characterDEF" value="10" min="1" max="99999">
+                    </div>
+                    <div class="stat-input">
+                        <label>HP</label>
+                        <input type="number" id="characterHP" value="20" min="1" max="99999">
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('addCharacterModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Character</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Place Modal -->
+    <div id="addPlaceModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add Place</h2>
+            <form id="addPlaceForm">
+                <div class="form-group">
+                    <label for="placeName">Name *</label>
+                    <input type="text" id="placeName" required>
+                </div>
+                <div class="form-group">
+                    <label for="placeDescription">Description</label>
+                    <textarea id="placeDescription" rows="4" placeholder="Describe this location..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="placeSignificance">Significance</label>
+                    <input type="text" id="placeSignificance" placeholder="What makes this place important?">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('addPlaceModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Place</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Soundtrack Modal -->
+    <div id="addSoundtrackModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add Soundtrack</h2>
+            <form id="addSoundtrackForm">
+                <div class="form-group">
+                    <label for="soundtrackName">Name *</label>
+                    <input type="text" id="soundtrackName" required>
+                </div>
+                <div class="form-group">
+                    <label for="soundtrackDescription">Description</label>
+                    <textarea id="soundtrackDescription" rows="3" placeholder="Describe this soundtrack..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="soundtrackUrl">URL</label>
+                    <input type="url" id="soundtrackUrl" placeholder="https://youtube.com/watch?v=... or spotify link">
+                    <small>Link to YouTube, Spotify, SoundCloud, or other music platform</small>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('addSoundtrackModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Soundtrack</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 TRAVELERS. UBTS.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="auth.js"></script>
+    <script type="module" src="worlds.js"></script>
+    <script type="module" src="world-detail.js"></script>
+
+    <!-- Mobile menu script -->
+    <script>
+        // Ensure mobile menu closes when window is resized to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                const mobileMenu = document.getElementById('mobileMenu');
+                const mobileToggle = document.getElementById('mobileMenuToggle');
+                if (mobileMenu && mobileMenu.classList.contains('active')) {
+                    mobileMenu.classList.remove('active');
+                    const icon = mobileToggle?.querySelector('i');
+                    if (icon) icon.className = 'fas fa-bars';
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        });
+    </script>
+
+    <style>
+        .loading-section, .error-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+        }
+
+        .loading-content, .error-content {
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .loading-content i, .error-content i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .error-content h2 {
+            color: var(--text-primary);
+            margin-bottom: 15px;
+        }
+
+        .world-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .back-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--primary-color);
+        }
+
+        .world-title-large {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--text-primary), var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .world-current-state {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .world-meta {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .section-content {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .content-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .content-item {
+            background: var(--background-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            color: var(--text-secondary);
+            transition: transform 0.3s ease;
+        }
+
+        .content-item:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary-color);
+        }
+
+        .content-tags {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .content-tag {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 0.9rem;
+        }
+
+        .admin-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .section-header-contrib {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-header-contrib h3 {
+            margin-bottom: 0;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .modal-content {
+            max-width: 500px;
+        }
+
+        .empty-section {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .world-title-large {
+                font-size: 2rem;
+            }
+
+            .world-nav {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+
+            .admin-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+
+            .section-header-contrib {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+
+            .section-header-contrib .btn {
+                align-self: flex-end;
+            }
+
+            .content-tags {
+                justify-content: center;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+            }
+
+            .modal-actions .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</body>
+</html>

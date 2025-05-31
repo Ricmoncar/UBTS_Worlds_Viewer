@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your World - TRAVELERS</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-globe"></i>
+                <span>TRAVELERS</span>
+            </div>
+            
+            <!-- Mobile menu toggle -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <!-- Desktop navigation -->
+            <div class="nav-menu">
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">Worlds</a>
+                    <a href="submitted-worlds.html" class="nav-link">Fanon Worlds</a>
+                    <a href="travelers.html" class="nav-link">Characters</a>
+                    <a href="talent-tree.html" class="nav-link">Talent Tree</a>
+                    <a href="create-world.html" class="nav-link active">Create World</a>
+                </div>
+                <div class="auth-section">
+                    <button id="loginBtn" class="btn btn-outline">Login</button>
+                    <button id="signupBtn" class="btn btn-outline">Sign Up</button>
+                    <div id="userSection" class="user-section" style="display: none;">
+                        <span id="userEmail" class="user-email" title=""></span>
+                        <button id="logoutBtn" class="btn btn-outline">Logout</button>
+                        <button id="adminBtn" class="btn btn-primary" style="display: none;">Admin Panel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile navigation menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" class="mobile-nav-link">Worlds</a>
+            <a href="submitted-worlds.html" class="mobile-nav-link">Fanon Worlds</a>
+            <a href="travelers.html" class="mobile-nav-link">Characters</a>
+            <a href="talent-tree.html" class="mobile-nav-link">Talent Tree</a>
+            <a href="create-world.html" class="mobile-nav-link active">Create World</a>
+            
+            <div class="mobile-auth-section">
+                <div id="mobileUserSection" class="mobile-user-section" style="display: none;">
+                    <span id="mobileUserEmail" class="mobile-user-email"></span>
+                    <button id="mobileAdminBtn" class="btn btn-primary" style="display: none;">Admin Panel</button>
+                    <button id="mobileLogoutBtn" class="btn btn-outline">Logout</button>
+                </div>
+                <div id="mobileAuthButtons" class="mobile-auth-buttons">
+                    <button id="mobileLoginBtn" class="btn btn-outline">Login</button>
+                    <button id="mobileSignupBtn" class="btn btn-outline">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="create-header">
+            <h1><i class="fas fa-magic"></i> Create a world</h1>
+            <p>*aura farms*</p>
+        </header>
+
+        <div id="loginRequired" class="login-required" style="display: none;">
+            <div class="login-required-content">
+                <i class="fas fa-info-circle"></i>
+                <h2>Optional Login</h2>
+                <p>You can create a world without logging in, but logging in will let you edit it later and get credit for your creation!</p>
+                <div class="login-required-actions">
+                    <button id="loginRequiredBtn" class="btn btn-outline">Login</button>
+                    <button id="signupRequiredBtn" class="btn btn-outline">Sign Up</button>
+                    <button id="continueAnonymousBtn" class="btn btn-primary">Continue Without Login</button>
+                </div>
+            </div>
+        </div>
+
+        <form id="createWorldForm" class="world-form">>
+            <div class="form-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <div class="progress-steps">
+                    <div class="step active" data-step="1">Basic Info</div>
+                    <div class="step" data-step="2">Characters</div>
+                    <div class="step" data-step="3">World Details</div>
+                    <div class="step" data-step="4">Review</div>
+                </div>
+            </div>
+
+            <!-- Step 1: Basic Information -->
+            <div class="form-step active" id="step1">
+                <div class="step-content">
+                    <h2><i class="fas fa-info-circle"></i> Basic Information</h2>
+                    
+                    <div class="form-group">
+                        <label for="worldName">World Name *</label>
+                        <input type="text" id="worldName" required placeholder="Give your UBTS world a memorable name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="worldBackstory">Backstory</label>
+                        <textarea id="worldBackstory" rows="5" placeholder="Tell us the history and background of your UBTS world. What makes it unique?"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="worldCurrentState">Current State</label>
+                        <input type="text" id="worldCurrentState" placeholder="e.g., War-torn, Peaceful, Under threat, In transition...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="worldColorScheme">World Color Theme</label>
+                        <div class="color-picker-group">
+                            <input type="color" id="worldColorScheme" value="#6366f1">
+                            <div class="color-preview" id="colorPreview"></div>
+                            <span>Choose a color that represents your world's essence</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="worldImageUrl">World Image URL</label>
+                        <input type="url" id="worldImageUrl" placeholder="https://example.com/world-image.jpg">
+                        <small>Optional: Add an image to represent your world</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="worldWikiUrl">Wiki URL</label>
+                        <input type="url" id="worldWikiUrl" placeholder="https://wiki.example.com/your-world">
+                        <small>Optional: Link to a wiki page with more information</small>
+                    </div>
+                </div>
+                
+                <div class="step-actions">
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 2: Characters -->
+            <div class="form-step" id="step2">
+                <div class="step-content">
+                    <h2><i class="fas fa-users"></i> Characters</h2>
+                    <p class="step-description">Add the main characters that inhabit your UBTS world</p>
+                    
+                    <div id="charactersContainer">
+                        <!-- Characters will be added dynamically -->
+                    </div>
+                    
+                    <button type="button" id="addCharacterBtn" class="btn btn-outline">
+                        <i class="fas fa-plus"></i> Add Character
+                    </button>
+                </div>
+                
+                <div class="step-actions">
+                    <button type="button" class="btn btn-outline" onclick="prevStep()">
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 3: World Details -->
+            <div class="form-step" id="step3">
+                <div class="step-content">
+                    <h2><i class="fas fa-map"></i> World Details</h2>
+                    <p class="step-description">Add the places, stories, and elements that make your UBTS world come alive</p>
+                    
+                    <div class="form-group">
+                        <label for="worldPlaces">Places of Interest</label>
+                        <textarea id="worldPlaces" rows="3" placeholder="Enter places separated by commas (e.g., Dragon's Peak, Crystal Caves, Ancient Library)"></textarea>
+                        <small>List the important locations in your world</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="worldSoundtracks">Soundtracks & Music</label>
+                        <textarea id="worldSoundtracks" rows="3" placeholder="Enter soundtrack names or descriptions separated by commas"></textarea>
+                        <small>What music captures the essence of your world?</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="worldStoryIdeas">Story Ideas</label>
+                        <textarea id="worldStoryIdeas" rows="4" placeholder="Enter story concepts separated by commas"></textarea>
+                        <small>What stories could unfold in this world?</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="worldConflicts">Conflicts & Tensions</label>
+                        <textarea id="worldConflicts" rows="3" placeholder="Enter conflicts separated by commas"></textarea>
+                        <small>What conflicts drive the drama in your world?</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="worldThemes">Central Themes</label>
+                        <textarea id="worldThemes" rows="2" placeholder="Enter themes separated by commas (e.g., Redemption, Power, Love, Sacrifice)"></textarea>
+                        <small>What are the core themes of your world?</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="worldCultures">Cultures & Societies</label>
+                        <textarea id="worldCultures" rows="3" placeholder="Enter cultures separated by commas"></textarea>
+                        <small>What different societies exist in your world?</small>
+                    </div>
+                </div>
+                
+                <div class="step-actions">
+                    <button type="button" class="btn btn-outline" onclick="prevStep()">
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 4: Review -->
+            <div class="form-step" id="step4">
+                <div class="step-content">
+                    <h2><i class="fas fa-eye"></i> Review Your World</h2>
+                    <p class="step-description">Take a final look at your creation before submitting to the fanon collection</p>
+                    
+                    <div id="worldPreview" class="world-preview">
+                        <!-- Preview will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="step-actions">
+                    <button type="button" class="btn btn-outline" onclick="prevStep()">
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                    <button type="submit" class="btn btn-primary btn-large">
+                        <i class="fas fa-magic"></i> Create World
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Create Account</h2>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 TRAVELERS. UBTS.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="auth.js"></script>
+    <script type="module" src="worlds.js"></script>
+    <script type="module" src="create-world.js"></script>
+
+    <!-- Mobile menu script -->
+    <script>
+        // Ensure mobile menu closes when window is resized to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                const mobileMenu = document.getElementById('mobileMenu');
+                const mobileToggle = document.getElementById('mobileMenuToggle');
+                if (mobileMenu && mobileMenu.classList.contains('active')) {
+                    mobileMenu.classList.remove('active');
+                    const icon = mobileToggle?.querySelector('i');
+                    if (icon) icon.className = 'fas fa-bars';
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        });
+    </script>
+
+    <style>
+        .create-header {
+            text-align: center;
+            padding: 40px 0;
+            margin-bottom: 40px;
+        }
+
+        .create-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .login-required {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--background-medium);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .login-required i {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .login-required-actions {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .world-form {
+            background: var(--background-medium);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .form-progress {
+            background: var(--background-dark);
+            padding: 20px 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--background-light);
+            border-radius: 2px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            width: 25%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .step {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .step.active {
+            color: var(--primary-color);
+        }
+
+        .form-step {
+            display: none;
+            padding: 40px;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .step-content h2 {
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-description {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .step-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .character-item {
+            background: var(--background-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .character-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .character-number {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .remove-character {
+            background: var(--error-color);
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .remove-character:hover {
+            transform: scale(1.1);
+        }
+
+        .world-preview {
+            background: var(--background-dark);
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .preview-section {
+            margin-bottom: 25px;
+        }
+
+        .preview-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .preview-content {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .preview-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .preview-tag {
+            background: var(--background-light);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .preview-character {
+            background: var(--background-medium);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+
+        .preview-character-name {
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .preview-character-stats {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .preview-stat {
+            text-align: center;
+        }
+
+        .preview-stat-value {
+            display: block;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .preview-stat-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .btn-large {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+        }
+
+        .form-group small {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 5px;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .progress-steps {
+                display: none;
+            }
+
+            .form-step {
+                padding: 20px;
+            }
+
+            .step-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .step-actions .btn {
+                width: 100%;
+            }
+
+            .login-required-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .login-required-actions .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</body>
+</html>

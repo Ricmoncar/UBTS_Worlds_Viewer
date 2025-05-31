@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRAVELERS</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-globe"></i>
+                <span>TRAVELERS</span>
+            </div>
+            
+            <!-- Mobile menu toggle -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <!-- Desktop navigation -->
+            <div class="nav-menu">
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link active">Worlds</a>
+                    <a href="submitted-worlds.html" class="nav-link">Fanon Worlds</a>
+                    <a href="travelers.html" class="nav-link">Characters</a>
+                    <a href="talent-tree.html" class="nav-link">Talent Tree</a>
+                </div>
+                <div class="auth-section">
+                    <button id="loginBtn" class="btn btn-outline">Login</button>
+                    <button id="signupBtn" class="btn btn-outline">Sign Up</button>
+                    <div id="userSection" class="user-section" style="display: none;">
+                        <span id="userEmail" class="user-email" title=""></span>
+                        <button id="logoutBtn" class="btn btn-outline">Logout</button>
+                        <button id="adminBtn" class="btn btn-primary" style="display: none;">Admin Panel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile navigation menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" class="mobile-nav-link active">Worlds</a>
+            <a href="submitted-worlds.html" class="mobile-nav-link">Fanon Worlds</a>
+            <a href="travelers.html" class="mobile-nav-link">Characters</a>
+            <a href="talent-tree.html" class="mobile-nav-link">Talent Tree</a>
+            
+            <div class="mobile-auth-section">
+                <div id="mobileUserSection" class="mobile-user-section" style="display: none;">
+                    <span id="mobileUserEmail" class="mobile-user-email"></span>
+                    <button id="mobileAdminBtn" class="btn btn-primary" style="display: none;">Admin Panel</button>
+                    <button id="mobileLogoutBtn" class="btn btn-outline">Logout</button>
+                </div>
+                <div id="mobileAuthButtons" class="mobile-auth-buttons">
+                    <button id="mobileLoginBtn" class="btn btn-outline">Login</button>
+                    <button id="mobileSignupBtn" class="btn btn-outline">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>UBTS Worlds</h1>
+            <p>For now mostly focused on the freaky tavelers</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number" id="worldCount">0</span>
+                    <span class="stat-label">Worlds Created</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" id="characterCount">0</span>
+                    <span class="stat-label">Characters</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" id="storyCount">0</span>
+                    <span class="stat-label">Stories</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="worlds-section">
+            <div class="section-header">
+                <h2>Official Worlds</h2>
+                <div class="filters">
+                    <select id="sortFilter" class="filter-select">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="name">Alphabetical</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div id="worldsGrid" class="worlds-grid">
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading worlds...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Create Account</h2>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 TRAVELERS. UBTS.</p>
+        </div>
+    </footer>
+
+    <!-- Firebase and App Scripts -->
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="auth.js"></script>
+    <script type="module" src="worlds.js"></script>
+    
+    <!-- Mobile menu script -->
+    <script>
+        // Ensure mobile menu closes when window is resized to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                const mobileMenu = document.getElementById('mobileMenu');
+                const mobileToggle = document.getElementById('mobileMenuToggle');
+                if (mobileMenu && mobileMenu.classList.contains('active')) {
+                    mobileMenu.classList.remove('active');
+                    const icon = mobileToggle?.querySelector('i');
+                    if (icon) icon.className = 'fas fa-bars';
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
