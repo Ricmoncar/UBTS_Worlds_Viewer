@@ -97,9 +97,6 @@ The app uses this Firebase Realtime Database structure:
 
 ## 👨‍💼 Admin Account
 
-**Email**: ricardomontescarrasco1@gmail.com  
-**Password**: RUSTGPT
-
 The admin account has full access to:
 - Create/edit/delete any world
 - Access the admin panel
